@@ -2,19 +2,26 @@
 var USER_PICTURE_PATH = 'img/avatars/user0';
 var USER_PICTURE_EXT = '.png';
 
-var OFFERS_TITLES = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'
+var OFFERS_TITLES = ['Большая уютная квартира',
+  'Маленькая неуютная квартира',
+  'Огромный прекрасный дворец',
+  'Маленький ужасный дворец',
+  'Красивый гостевой домик',
+  'Некрасивый негостеприимный домик',
+  'Уютное бунгало далеко от моря',
+  'Неуютное бунгало по колено в воде'
 ];
 
-var OFFERS_TYPES = ['flat', 'house', 'palace', 'bungalo'
-];
+var OFFERS_TYPES = ['flat', 'house', 'palace', 'bungalo'];
 
-var OFFERS_TIMES = ['12:00', '13:00', '14:00'
-];
+var OFFERS_TIMES = ['12:00', '13:00', '14:00'];
 
-var OFFERS_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'
-];
+var OFFERS_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 
-var OFFERS_PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
+var OFFERS_PHOTOS = [
+  'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
+  'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
+  'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
 ];
 
 var OffersTypes = {flat: 'Квартира', house: 'Дом', palace: 'Дворец', bungalo: 'Бунгало'};
@@ -37,7 +44,8 @@ var generateRandomOffers = function (count) {
     newOffer.author = {};
     newOffer.author.avatar = USER_PICTURE_PATH + (i + 1) + USER_PICTURE_EXT;
 
-    newOffer.offer = {}; newOffer.offer.title = OFFERS_TITLES[getRandomNumber(0, OFFERS_TITLES.length - 1)]; newOffer.location = {};
+    newOffer.offer = {}; newOffer.offer.title = OFFERS_TITLES[getRandomNumber(0, OFFERS_TITLES.length - 1)];
+    newOffer.location = {};
     newOffer.location.x = getRandomNumber(300, 900);
     newOffer.location.y = getRandomNumber(150, 500);
 
@@ -63,23 +71,23 @@ var generateRandomOffers = function (count) {
   var similarListObjects = document.querySelector('.map__card');
 
   for (var j = 0; j < count; j++) {
-    var NewPinElement = similarListObjects.cloneNode(true);
-    NewPinElement.querySelector('.popup__title').textContent = newOffer.title;
-    NewPinElement.querySelector('.popup__text--address').textContent = newOffer.offer.address;
-    NewPinElement.querySelector('.popup__text--price').textContent = newOffer.offer.price + 'р/ночь';
-    NewPinElement.querySelector('.popup__type').textContent = OffersTypes[getRandomNumber(0, 3)];
-    NewPinElement.querySelector('.popup__text--capacity').textContent = newOffer.offer.rooms + 'комнаты для' + newOffer.offer.guests + 'гостей';
-    NewPinElement.querySelector('.popup__text--time').textContent = 'Заезд после' + newOffer.offer.checkin + ', выезд до' + newOffer.offer.checkout;
-    NewPinElement.querySelector('.popup__features').textContent = newOffer.offer.features;
-    NewPinElement.querySelector('.popup__description').textContent = newOffer.offer.description;
-    NewPinElement.querySelector('.popup__photos').textContent = newOffer.offer.photos;
-    similarListElement.appendChild(NewPinElement);
+    var newPinElement = similarListObjects.cloneNode(true);
+    newPinElement.querySelector('.popup__title').textContent = newOffer.title;
+    newPinElement.querySelector('.popup__text--address').textContent = newOffer.offer.address;
+    newPinElement.querySelector('.popup__text--price').textContent = newOffer.offer.price + 'р/ночь';
+    newPinElement.querySelector('.popup__type').textContent = OffersTypes[getRandomNumber(0, 3)];
+    newPinElement.querySelector('.popup__text--capacity').textContent = newOffer.offer.rooms +
+     'комнаты для' + newOffer.offer.guests + 'гостей';
+    newPinElement.querySelector('.popup__text--time').textContent = 'Заезд после' +
+     newOffer.offer.checkin + ', выезд до' + newOffer.offer.checkout;
+    newPinElement.querySelector('.popup__features').textContent = newOffer.offer.features;
+    newPinElement.querySelector('.popup__description').textContent = newOffer.offer.description;
+    newPinElement.querySelector('.popup__photos').textContent = newOffer.offer.photos;
+    similarListElement.appendChild(newPinElement);
   }
 
   return result;
 };
-var GENERATE_RANDOM = generateRandomOffers(8); console.log(GENERATE_RANDOM);
-
 /* function randomInteger(min,max) {
     var rand = min - 0.5+ Math.random()*(max-min+1)
     rand = Math.round(rand);
