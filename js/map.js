@@ -74,11 +74,11 @@ var generateRandomOffers = function (count) {
 
   return result;
 
-  var parentCard = document.querySelector('template');
-  var closeButton = document.querySelector('.popup__close');
-  closeButton.addEventListener('click', function () {
-    parentCard.parentNode.removeChild(parentCard);
-  });
+  // var parentCard = document.querySelector('template');
+  // var closeButton = document.querySelector('.popup__close');
+  // closeButton.addEventListener('click', function () {
+  //   parentCard.parentNode.removeChild(parentCard);
+  // });
   // var similarListElement = document.querySelector('.map__pin');
   // var mapTemplate = document.querySelector('template');
 
@@ -191,16 +191,96 @@ Mouseup.addEventListener('mouseup', function () {
   mapfaded.classList.remove('map--faded');
   addform.classList.remove('ad-form--disabled');
   var coord = event.x + ', ' + event.y;
-  addformadress.setAttribute('value', coord);
+  addformadress.value = coord;
+  addformadress.disabled = true;
   togglePinHidden(true);
 });
 
-//var pinClick = document.querySelector('.icon-open');
- //var cardHidden = document.querySelector('.map__card');
- //pinClick.addEventListener('click', function () {
-  // cardHidden.classList.remove('visually-hidden');
-// });
 
+var minLengthCount = 30;
+var maxLengthCount = 100;
+var newTitle = document.querySelector('#title');
+newTitle.minLength = minLengthCount;
+newTitle.maxLength = maxLengthCount;
+newTitle.required = true;
+
+var setPriceMax = 1000000;
+var setPrice = document.querySelector('#price');
+setPrice.required = true;
+setPrice.max = setPriceMax;
+
+
+var  appartamentType = document.querySelector('#type');
+var onPriceChange = function(){
+  if (appartamentType.value === 'bungalo' ){
+    setPrice.min = 0;
+  } else if (appartamentType.value === 'flat'){
+    setPrice.min = 1000;
+  } else if (appartamentType.value === 'house'){
+    setPrice.min = 5000;
+  } else if (appartamentType.value === 'palace'){
+    setPrice.min = 10000;
+  }
+}
+
+appartamentType.addEventListener('change', onPriceChange);
+
+var timeIn = document.querySelector('#timein');
+var timeOut = document.querySelector('#timeout');
+
+var onTimeInChange = function(){
+  if (timeIn.value === '12:00'){
+    timeOut.value = '12:00';
+  } else if (timeIn.value === '13:00'){
+    timeOut.value = '13:00';
+  } else if (timeIn.value === '14:00') {
+    timeOut.value = '14:00';
+  } 
+}
+
+//  onTimeOutChange = function (){
+//    if (timeOut.value === '12:00'){
+//      timeIn.value = '12:00';
+//    } else if (timeOut.value === '13:00'){
+//      timeIn.value = '13:00';
+//    } else if (timeOut.value === '14:00') {
+//      timeIn.value = '14:00';
+//   }
+// }
+
+timeIn.addEventListener('change', onTimeInChange);
+//timeOut.addEventListener('change', onTimeOutChange);
+
+var roomNumber = document.querySelector('#room_number');
+var capacityValue2 = document.querySelector('#capacity option:nth-child(2)');
+var capacityValue1 = document.querySelector('#capacity option:nth-child(1)');
+var capacityValue3 = document.querySelector('#capacity option:nth-child(3)');
+var capacityValue4 = document.querySelector('#capacity option:nth-child(4)');
+ var onRoomNumberChange = function(){
+   if (roomNumber.value === '1'){
+    capacityValue2.disabled = true;
+    capacityValue1.disabled = true;
+    capacityValue4.disabled = true;
+    capacityValue3.disabled = false;
+} else if (roomNumber.value === '2'){
+    capacityValue1.disabled = true;
+    capacityValue4.disabled = true;
+    capacityValue2.disabled = false;
+    capacityValue3.disabled = false;
+} else if (roomNumber.value === '3'){
+  capacityValue4.disabled = true;
+  capacityValue1.disabled = false;
+  capacityValue2.disabled = false;
+  capacityValue3.disabled = false;
+} else if (roomNumber.value === '100'){
+  capacityValue1.disabled = true;
+  capacityValue2.disabled = true;
+  capacityValue3.disabled = true;
+  capacityValue4.disabled = false;
+}
+ }
+
+roomNumber.addEventListener ('change', onRoomNumberChange);
 
 var GENERATE_ITEMS = generateRandomOffers(8);
 renderPins(GENERATE_ITEMS);
