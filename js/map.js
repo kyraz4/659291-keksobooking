@@ -73,6 +73,12 @@ var generateRandomOffers = function (count) {
   }
 
   return result;
+
+  var parentCard = document.querySelector('template');
+  var closeButton = document.querySelector('.popup__close');
+  closeButton.addEventListener('click', function () {
+    parentCard.parentNode.removeChild(parentCard);
+  });
   // var similarListElement = document.querySelector('.map__pin');
   // var mapTemplate = document.querySelector('template');
 
@@ -95,6 +101,14 @@ var generateRandomOffers = function (count) {
   // return result;
 };
 
+var onPinClick = function (data) {
+  
+  // drop card
+  // add card
+  var newCard = createCard(data);
+  renderCards([newCard]);
+}
+
 var mapTemplate = document.querySelector('template').content;
 var map = document.querySelector('.map');
 
@@ -107,6 +121,8 @@ var createPin = function (offerObject) {
   pinElementTemplate.querySelector('img').src = offerObject.author.avatar;
   pinElementTemplate.classList.add('visually-hidden');
   pinElementTemplate.classList.add('icon-open');
+
+  pinElementTemplate.addEventListener('click', onPinClick.bind(null, offerObject));
   return pinElementTemplate;
 
 };
@@ -179,16 +195,16 @@ Mouseup.addEventListener('mouseup', function () {
   togglePinHidden(true);
 });
 
-// //var pinClick = document.querySelector('.icon-open');
-// var cardHidden = document.querySelector('.map__card');
-// pinClick.addEventListener('click', function () {
-//   cardHidden.classList.remove('visually-hidden');
+//var pinClick = document.querySelector('.icon-open');
+ //var cardHidden = document.querySelector('.map__card');
+ //pinClick.addEventListener('click', function () {
+  // cardHidden.classList.remove('visually-hidden');
 // });
 
 
 var GENERATE_ITEMS = generateRandomOffers(8);
 renderPins(GENERATE_ITEMS);
-renderCards(GENERATE_ITEMS);
+//renderCards(GENERATE_ITEMS);
 
 /* function randomInteger(min,max) {
     var rand = min - 0.5+ Math.random()*(max-min+1)
